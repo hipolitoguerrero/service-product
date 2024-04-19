@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Fetch;
 
 import java.util.Date;
 
@@ -21,8 +20,13 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    //FIXME: problema con libreria/dependencia
+    //@NotEmpty(message = "El nombre no debe ser vacío")
     private String name;
     private String description;
+
+    //@Positive(message = "El stock debe ser mayor que cero")
     private Double stock;
     private Double price;
     private String status;
@@ -31,6 +35,7 @@ public class Product {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createAt;
 
+    //@NotNull(message = "La categoria no puede ser vacía")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
